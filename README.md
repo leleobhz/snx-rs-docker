@@ -6,10 +6,11 @@ This container is intended to run
 
 ## Images availables
 
-All images are available at https://quay.io/repository/pqatsi/snx-rs?tab=tags and we provide the following archs:
+All images are available at [Packages](https://github.com/leleobhz/snx-rs-docker/packages) on this repo and we provide the following archs:
 
 * amd64
 * arm64
+* armv7
 * armv6 (This version is specially built for RaspberryPi 1)
 
 ## Usage
@@ -31,7 +32,7 @@ Should be same from using without container. For reference, the Raspberry Pi 1 c
 
 ## TODO
 
-* CI with Github
+* ~~CI with Github~~
 * Upstream PR (I need some time to prepare a cleaner solution).
 
 ## License
