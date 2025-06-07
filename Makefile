@@ -25,4 +25,4 @@ build-manifest: build-amd64 build-arm64 build-rpi
 build: build-amd64 build-arm64 build-rpi build-manifest
 
 act:
-	DOCKER_HOST="unix:///run/user/1000/podman/podman.sock" act -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:act-24.04 --var-file=".vars" --secret-file=".secrets"
+	DOCKER_HOST="unix:///run/user/1000/podman/podman.sock" act -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:act-24.04 --var-file=".vars" --secret-file=".secrets" --actor "leleobhz"
