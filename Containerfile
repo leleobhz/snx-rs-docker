@@ -16,7 +16,7 @@ RUN . "/cargo/env" \
  && cargo vendor > .cargo/config.toml
 
 ## SNX-RS
-FROM --platform=$TARGETPLATFORM docker.io/library/debian:stable-slim as builder
+FROM docker.io/library/debian:stable-slim AS builder
 
 ENV CARGO_HOME=/cargo
 ENV RUSTUP_TOOLCHAIN=stable
@@ -36,7 +36,7 @@ RUN . "/cargo/env" \
  && cargo build --offline --frozen --release --workspace --exclude snx-rs-gui --exclude snxctl
 
 # Final
-FROM --platform=$TARGETPLATFORM docker.io/library/debian:stable-slim
+FROM docker.io/library/debian:stable-slim
 
 RUN apt -qq update \
  && apt -qq -y install procps ca-certificates iproute2 iptables \
