@@ -67,8 +67,8 @@ jobs:
         id: build
         uses: docker/build-push-action@v6
         with:
-          cache-from: type=registry,ref=user/app:buildcache
-          cache-to: type=registry,ref=user/app:buildcache,mode=max
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}:cache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}:cache,mode=max
           build-args: snx_rs_version=${{env.UPSTREAM_BRANCH}}
           file: Containerfile${{ env.CONTAINERFILE_SUFFIX }}
           platforms: ${{ matrix.platform }}

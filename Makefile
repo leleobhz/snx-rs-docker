@@ -25,4 +25,7 @@ build-manifest: build-amd64 build-arm64 build-rpi
 build: build-amd64 build-arm64 build-rpi build-manifest
 
 act:
-	DOCKER_HOST="unix:///run/user/1000/podman/podman.sock" act -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:act-24.04 --var-file=".vars" --secret-file=".secrets" --actor "leleobhz"
+	# PackagePull PAT
+	ARTIFACT_PATH=$(shell mktemp -d)
+	echo "Artifact path: $(ARTIFACT_PATH)"
+	DOCKER_HOST="unix:///run/user/1000/podman/podman.sock" act -P leonardoamaral-github-runner-snx-rs-docker=ghcr.io/catthehacker/ubuntu:act-24.04 -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:act-24.04 --var-file=".vars" --secret-file=".secrets" --actor "leleobhz" --artifact-server-path "$(ARTIFACT_PATH)"
