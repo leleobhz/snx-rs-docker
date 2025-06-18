@@ -33,7 +33,7 @@ jobs:
     - name: Buildhah prepare
       run: |
         sudo apt update
-        apt install -y buildah skopeo
+        sudo apt install -y buildah skopeo
     - name: Checkout code
       uses: actions/checkout@v4
       with:
