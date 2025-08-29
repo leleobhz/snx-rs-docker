@@ -1,4 +1,4 @@
-name: "[CI] Upstream latest - Buildah method Github Runner"
+name: "[CI] Upstream latest - Buildah method On Premisses"
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: leonardoamaral-github-runner-snx-rs-docker
     strategy:
       fail-fast: false
       matrix:
