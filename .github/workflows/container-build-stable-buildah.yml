@@ -33,6 +33,7 @@ jobs:
       run: |
         sudo apt update
         sudo apt install -y buildah podman
+
     - name: Checkout code
       uses: actions/checkout@v4
       with:
@@ -121,6 +122,11 @@ jobs:
       packages: write
     needs: build
     steps:
+    - name: Buildhah prepare
+      run: |
+        sudo apt update
+        sudo apt install -y podman
+
     - name: Download digests
       uses: actions/download-artifact@v4
       with:
