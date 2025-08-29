@@ -116,7 +116,7 @@ jobs:
 
   upload:
     name: Upload images
-    runs-on: leonardoamaral-github-runner-snx-rs-docker
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
@@ -126,7 +126,6 @@ jobs:
       run: |
         sudo apt update
         sudo apt install -y podman
-        sudo usermod --add-subuids 524288-589823 --add-subgids 524288-589823 $(id -nu)
 
     - name: Download digests
       uses: actions/download-artifact@v4
