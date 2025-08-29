@@ -98,13 +98,13 @@ jobs:
 
     - name: Container to tar
       # https://github.com/actions/runner-images/issues/10443#issuecomment-2296608244
-      run: podman save -o /tmp/${{ env.PODMAN_ARCH }}-oci.tar ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}:${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
+      run: podman save -o /tmp/${{ env.PLATFORM_PAIR }}-oci.tar ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}:${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
 
     - name: Upload digest
       uses: actions/upload-artifact@v4
       with:
-        name: build-${{ env.PODMAN_ARCH }}
-        path: /tmp/${{ env.PODMAN_ARCH }}-oci.tar
+        name: build-${{ env.PLATFORM_PAIR }}
+        path: /tmp/${{ env.PLATFORM_PAIR }}-oci.tar
         if-no-files-found: error
         retention-days: 1
 
