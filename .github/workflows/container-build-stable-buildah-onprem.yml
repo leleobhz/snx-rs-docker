@@ -97,7 +97,7 @@ jobs:
         platforms: ${{ matrix.platform }}
 
     - name: Container to tar
-      run: skopeo copy containers-storage:${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}:build-${{ env.PODMAN_ARCH }} oci-archive:/tmp/${{ env.PODMAN_ARCH }}-oci.tar
+      run: podman save -o /tmp/${{ env.PODMAN_ARCH }}-oci.tar ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}:${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
 
     - name: Upload digest
       uses: actions/upload-artifact@v4

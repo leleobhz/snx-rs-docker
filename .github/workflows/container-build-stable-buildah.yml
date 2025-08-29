@@ -98,7 +98,7 @@ jobs:
 
     - name: Container to tar
       # https://github.com/actions/runner-images/issues/10443#issuecomment-2296608244
-      run: podman save -o /tmp/${{ env.PODMAN_ARCH }}-oci.tar ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}:build-${{ env.PODMAN_ARCH }}
+      run: podman save -o /tmp/${{ env.PODMAN_ARCH }}-oci.tar ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}:${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
 
     - name: Upload digest
       uses: actions/upload-artifact@v4
