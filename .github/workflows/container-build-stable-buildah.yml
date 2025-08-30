@@ -33,7 +33,7 @@ jobs:
       if: runner.os == 'Linux'
       shell: bash
       run: |
-        ubuntu_version=$(. /etc/os-release && echo "$ID")
+        ubuntu_version=$(. /etc/os-release && echo "$VERSION_ID")
         echo "INFO: Using Ubuntu version '${ubuntu_version}' for Kubic repository."
 
         echo "INFO: Adding Kubic repository..."
@@ -155,7 +155,7 @@ jobs:
       if: runner.os == 'Linux'
       shell: bash
       run: |
-        ubuntu_version=$(. /etc/os-release && echo "$ID")
+        ubuntu_version=$(. /etc/os-release && echo "$VERSION_ID")
         echo "INFO: Using Ubuntu version '${ubuntu_version}' for Kubic repository."
 
         echo "INFO: Adding Kubic repository..."
