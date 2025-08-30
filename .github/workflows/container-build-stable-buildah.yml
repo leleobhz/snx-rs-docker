@@ -34,29 +34,17 @@ jobs:
       shell: bash
       run: |
         ubuntu_version=$(. /etc/os-release && echo "$VERSION_ID")
-        echo "INFO: Using Ubuntu version '${ubuntu_version}' for Kubic repository."
+        echo "INFO: Using Ubuntu version '${ubuntu_version}' for Alvistack repository."
 
-        echo "INFO: Adding Kubic repository..."
-        sudo sh -c "echo 'deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_${ubuntu_version}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list"
-        curl -fsSL "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_${ubuntu_version}/Release.key" | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kubic.gpg
+        echo "INFO: Adding Alvistack repository..."
+        sudo sh -c "echo 'deb https://download.opensuse.org/repositories/home:/alvistack/xUbuntu_${ubuntu_version}/ /' > /etc/apt/sources.list.d/home:alvistack.list"
+        curl -fsSL "https://download.opensuse.org/repositories/home:/alvistack/xUbuntu_${ubuntu_version}/Release.key" | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/alvistack.gpg
 
         echo "INFO: Updating package list..."
         sudo apt-get update -qq
 
-        echo "INFO: Installing CRIU dependencies..."
-        sudo apt-get install --allow-unauthenticated -qq -y libprotobuf32t64 python3-protobuf libnet1
-
-        echo "INFO: Installing CRIU manually..."
-        curl -sLO http://archive.ubuntu.com/ubuntu/pool/universe/c/criu/criu_3.16.1-2_amd64.deb && sudo dpkg -i criu_3.16.1-2_amd64.deb
-
         echo "INFO: Installing Podman..."
-        sudo apt-get -qq -y install --allow-unauthenticated podman buildah || {
-          echo "WARN: Primary installation failed. Trying fallback repository..."
-          sudo sh -c "echo 'deb http://ftp.lysator.liu.se/pub/opensuse/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_${ubuntu_version}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list"
-          curl -fsSL "http://ftp.lysator.liu.se/pub/opensuse/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_${ubuntu_version}/Release.key" | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kubic-fallback.gpg
-          sudo apt-get --allow-insecure-repositories update -qq
-          sudo apt-get --allow-unauthenticated -y install podman buildah
-        }
+        sudo apt-get -qq -y install --allow-unauthenticated podman buildah
 
         sudo usermod --add-subuids 524288-589823 --add-subgids 524288-589823 $(id -nu)
 
@@ -156,29 +144,17 @@ jobs:
       shell: bash
       run: |
         ubuntu_version=$(. /etc/os-release && echo "$VERSION_ID")
-        echo "INFO: Using Ubuntu version '${ubuntu_version}' for Kubic repository."
+        echo "INFO: Using Ubuntu version '${ubuntu_version}' for Alvistack repository."
 
-        echo "INFO: Adding Kubic repository..."
-        sudo sh -c "echo 'deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_${ubuntu_version}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list"
-        curl -fsSL "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_${ubuntu_version}/Release.key" | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kubic.gpg
+        echo "INFO: Adding Alvistack repository..."
+        sudo sh -c "echo 'deb https://download.opensuse.org/repositories/home:/alvistack/xUbuntu_${ubuntu_version}/ /' > /etc/apt/sources.list.d/home:alvistack.list"
+        curl -fsSL "https://download.opensuse.org/repositories/home:/alvistack/xUbuntu_${ubuntu_version}/Release.key" | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/alvistack.gpg
 
         echo "INFO: Updating package list..."
         sudo apt-get update -qq
 
-        echo "INFO: Installing CRIU dependencies..."
-        sudo apt-get install --allow-unauthenticated -qq -y libprotobuf32t64 python3-protobuf libnet1
-
-        echo "INFO: Installing CRIU manually..."
-        curl -sLO http://archive.ubuntu.com/ubuntu/pool/universe/c/criu/criu_3.16.1-2_amd64.deb && sudo dpkg -i criu_3.16.1-2_amd64.deb
-
         echo "INFO: Installing Podman..."
-        sudo apt-get -qq -y install --allow-unauthenticated podman || {
-          echo "WARN: Primary installation failed. Trying fallback repository..."
-          sudo sh -c "echo 'deb http://ftp.lysator.liu.se/pub/opensuse/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_${ubuntu_version}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list"
-          curl -fsSL "http://ftp.lysator.liu.se/pub/opensuse/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_${ubuntu_version}/Release.key" | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kubic-fallback.gpg
-          sudo apt-get --allow-insecure-repositories update -qq
-          sudo apt-get --allow-unauthenticated -y install podman
-        }
+        sudo apt-get -qq -y install --allow-unauthenticated podman
 
         sudo usermod --add-subuids 524288-589823 --add-subgids 524288-589823 $(id -nu)
 
