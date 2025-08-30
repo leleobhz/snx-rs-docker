@@ -45,6 +45,7 @@ jobs:
 
         echo "INFO: Installing Podman..."
         sudo rm -rfv /lib/systemd/user-generators
+        sudo apt-get -qq -y purge golang-github-containers-common
         sudo apt-get -qq -y install --allow-unauthenticated podman buildah
 
         sudo usermod --add-subuids 524288-589823 --add-subgids 524288-589823 $(id -nu)
@@ -156,6 +157,7 @@ jobs:
 
         echo "INFO: Installing Podman..."
         sudo rm -rfv /lib/systemd/user-generators
+        sudo apt-get -qq -y purge golang-github-containers-common
         sudo apt-get -qq -y install --allow-unauthenticated podman
 
         sudo usermod --add-subuids 524288-589823 --add-subgids 524288-589823 $(id -nu)
