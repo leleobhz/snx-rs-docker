@@ -2,7 +2,9 @@
 
 ## Overview
 
-This container is intended to run 
+This container is intended to run [snx-rs](https://github.com/ancwrd1/snx-rs) as a container. 
+
+[![[CI] Upstream latest - Github Runner](https://github.com/leleobhz/snx-rs-docker/actions/workflows/container-build-stable.yml/badge.svg)](https://github.com/leleobhz/snx-rs-docker/actions/workflows/container-build-stable.yml)
 
 ## Images availables
 
@@ -13,12 +15,14 @@ All images are available at [Packages](https://github.com/leleobhz/snx-rs-docker
 * armv7
 * armv6 (This version is specially built for RaspberryPi 1)
 
+Images can be found by `latest` tag or `X.Y.Z` version format.
+
 ## Usage
 
 TL;DR: 
 
 ```bash
-podman run --replace --rm --privileged --device=/dev/net/tun --volume=/opt/snx/sessions:/var/cache/snx-rs/sessions --cap-add=NET_ADMIN,SYS_ADMIN --network=host --name snx-rs-vpn -v /lib/modules:/lib/modules:ro quay.io/pqatsi/snx-rs:latest /usr/bin/snx-rs --mode standalone --login-type vpn --tunnel-type ipsec --ike-persist true --default-route false --no-dns true --if-name <DESIRED_IF_NAME_OUTSIDE_POD> --server-name <YOUR_VPN_HOST_HERE> --user-name <YOUR_USER_HERE> --password <YOUR_PASS_HERE> --log-level debug --client-mode endpoint_security
+podman run --replace --rm --privileged --device=/dev/net/tun --volume=/opt/snx/sessions:/var/cache/snx-rs/sessions --cap-add=NET_ADMIN,SYS_ADMIN --network=host --name snx-rs-vpn -v /lib/modules:/lib/modules:ro ghcr.io/leleobhz/snx-rs-docker:latest /usr/bin/snx-rs --mode standalone --login-type vpn --tunnel-type ipsec --ike-persist true --default-route false --no-dns true --if-name <DESIRED_IF_NAME_OUTSIDE_POD> --server-name <YOUR_VPN_HOST_HERE> --user-name <YOUR_USER_HERE> --password <YOUR_PASS_HERE> --log-level debug --client-mode endpoint_security
 ```
 
 These images are tested on following environments:
