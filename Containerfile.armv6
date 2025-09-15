@@ -16,7 +16,7 @@ RUN . "/cargo/env" \
  && cargo vendor > .cargo/config.toml
 
 ## SNX-RS
-FROM docker.io/tianon/raspbian:bookworm-slim AS builder
+FROM docker.io/tianon/raspbian:trixie-slim AS builder
 
 ENV CARGO_HOME=/cargo
 ENV RUSTUP_TOOLCHAIN=stable
@@ -36,7 +36,7 @@ RUN . "/cargo/env" \
  && cargo build --target=arm-unknown-linux-gnueabihf --offline --frozen --release --workspace --exclude snx-rs-gui --exclude snxctl
 
 # Final
-FROM docker.io/tianon/raspbian:bookworm-slim
+FROM docker.io/tianon/raspbian:trixie-slim
 
 RUN apt -qq update \
  && apt -qq -y install procps ca-certificates iproute2 iptables \
