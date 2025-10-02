@@ -4,7 +4,9 @@
 
 This container is intended to run [snx-rs](https://github.com/ancwrd1/snx-rs) as a container. 
 
-[![[CI] Upstream latest - Github Runner](https://github.com/leleobhz/snx-rs-docker/actions/workflows/container-build-stable.yml/badge.svg)](https://github.com/leleobhz/snx-rs-docker/actions/workflows/container-build-stable.yml)
+[![[CI] Upstream latest - Github Runner native](https://github.com/leleobhz/snx-rs-docker/actions/workflows/container-build-stable-native.yml/badge.svg)](https://github.com/leleobhz/snx-rs-docker/actions/workflows/container-build-stable-native.yml)
+
+[![[CI] Upstream latest - Github Runner emulated](https://github.com/leleobhz/snx-rs-docker/actions/workflows/container-build-stable-emulated.yml/badge.svg)](https://github.com/leleobhz/snx-rs-docker/actions/workflows/container-build-stable-emulated.yml)
 
 ## Images availables
 
