@@ -1,4 +1,4 @@
-name: "[CI] Upstream latest - Github Runner"
+name: "[CI] Upstream latest - Github Runner emulated"
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
     paths:
       - 'Containerfile'
       - 'Containerfile.armv6'
-      - '.github/workflows/container-build-stable.yml'
+      - '.github/workflows/container-build-stable-emulated.yml'
   schedule:
     - cron: '42 2 * * 6'
 
