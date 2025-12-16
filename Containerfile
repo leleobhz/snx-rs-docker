@@ -25,7 +25,7 @@ COPY --from=git /snx-rs /usr/src/snx-rs
 
 RUN apt -qq update \
  && apt -qqy --no-install-recommends install catatonit ca-certificates \
- && apt -qqy install curl pkgconf clang libssl-dev
+ && apt -qqy install curl pkgconf clang libssl-dev libsqlite3-dev
 
 RUN /usr/bin/curl -sSLf https://sh.rustup.rs | sh -s -- -y
 
