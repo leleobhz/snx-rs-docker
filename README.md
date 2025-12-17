@@ -14,8 +14,6 @@ All images are available at [Packages](https://github.com/leleobhz/snx-rs-docker
 
 * amd64
 * arm64
-* armv7
-* armv6 (This version is specially built for RaspberryPi 1)
 
 Images can be found by `latest` tag or `X.Y.Z` version format.
 
@@ -30,7 +28,7 @@ podman run --replace --rm --privileged --device=/dev/net/tun --volume=/opt/snx/s
 These images are tested on following environments:
 
 * amd64 with podman
-* armv6 with [OpenWRT 24.10](https://openwrt.org/releases/24.10/start) (Podman does not work nicely with previous version) on Raspberry Pi 1
+* arm64 with [OpenWRT 24.10](https://openwrt.org/releases/24.10/start) (Podman does not work nicely with previous version) on Raspberry Pi 4
 
 ## Performance
 
