@@ -6,7 +6,7 @@ This container is intended to run [snx-rs](https://github.com/ancwrd1/snx-rs) as
 
 [![[CI] Upstream latest - Github Runner native](https://github.com/leleobhz/snx-rs-docker/actions/workflows/container-build-stable-native.yml/badge.svg)](https://github.com/leleobhz/snx-rs-docker/actions/workflows/container-build-stable-native.yml)
 
-[![[CI] Upstream latest - Github Runner emulated](https://github.com/leleobhz/snx-rs-docker/actions/workflows/container-build-stable-emulated.yml/badge.svg)](https://github.com/leleobhz/snx-rs-docker/actions/workflows/container-build-stable-emulated.yml)
+[![[CI] Upstream latest UBI - Github Runner native](https://github.com/leleobhz/snx-rs-docker/actions/workflows/container-build-stable-native-ubi.yml/badge.svg)](https://github.com/leleobhz/snx-rs-docker/actions/workflows/container-build-stable-native-ubi.yml)
 
 ## Images availables
 

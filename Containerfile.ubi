@@ -1,0 +1,40 @@
+## GIT ##
+
+FROM --platform=$BUILDPLATFORM registry.access.redhat.com/ubi10/ubi-minimal:10.1 AS git
+
+ARG snx_rs_version 2.8.1
+
+RUN microdnf -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install git-core
+RUN git clone --single-branch --depth=1 --branch=v${snx_rs_version} https://github.com/ancwrd1/snx-rs.git /snx-rs
+
+## SNX-RS BUILDER ##
+FROM registry.access.redhat.com/ubi10/ubi:10.1 AS builder 
+
+COPY --from=git /snx-rs /usr/src/snx-rs
+WORKDIR /usr/src/snx-rs
+
+RUN dnf -y --setopt install_weak_deps=False --setopt tsflags=nodocs install git-core ca-certificates rust cargo pkgconf openssl-devel sqlite-devel 
+
+# Architectural choice: cargo vendor can be run in $BUILDPLATFORM instead $TARGETPLATFORM indeed, but since now 
+# this code only uses Github natives builders (Supporting x86_64 and arm64), not a big deal to use cargo vendor here.
+# Anyways, this one can be moved to "git" step at cost installing more packages
+
+RUN mkdir -p .cargo \
+ && cargo vendor > .cargo/config.toml \
+ && cargo fetch
+
+RUN cargo build --config 'profile.release-lto.inherits = "release"' --config 'profile.release-lto.lto = true' --profile=release-lto --offline --frozen --workspace --exclude snx-rs-gui --exclude snxctl
+
+## FINAL ##
+FROM registry.access.redhat.com/ubi10/ubi-minimal:10.1 AS final
+
+RUN microdnf -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install catatonit ca-certificates iproute \
+ && microdnf -y clean all \
+ && rm -rf /var/cache/yum
+
+COPY --from=builder /usr/src/snx-rs/target/release-lto/snx-rs /usr/bin/
+
+VOLUME /var/cache/snx-rs/
+
+ENTRYPOINT ["/usr/libexec/catatonit/catatonit", "-g", "--"]
+CMD ["/usr/bin/snx-rs"]
