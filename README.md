@@ -15,7 +15,17 @@ All images are available at [Packages](https://github.com/leleobhz/snx-rs-docker
 * amd64
 * arm64
 
-Images can be found by `latest` tag or `X.Y.Z` version format.
+### Image matrix
+
+| Tag        | Description                                                  | Example                                     | Notes |
+|------------|--------------------------------------------------------------|---------------------------------------------|-------|
+|            |                                                              |                                             |       |
+| latest     | Debian version of latest stable release snx-rs from upstream | `ghcr.io/leleobhz/snx-rs-docker:latest`     |       |
+| latest-ubi | UBI version of latest stable release snx-rs from upstream    | `ghcr.io/leleobhz/snx-rs-docker:latest-ubi` |       |
+| X.Y.Z      | Debian version of X.Y.Z snx-rs from upstream                 | `ghcr.io/leleobhz/snx-rs-docker:5.0.1`      |       |
+| X.Y.Z-ubi  | UBI version of X.Y.Z snx-rs from upstream                    | `ghcr.io/leleobhz/snx-rs-docker:5.0.1-ubi`  | [1]   |
+
+[1]: UBI images available only after 5.0.1 release
 
 ## Usage
 
