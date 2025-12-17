@@ -33,7 +33,7 @@ WORKDIR /usr/src/snx-rs
 
 RUN . "/cargo/env" \
  && cd /usr/src/snx-rs \
- && cargo build --offline --frozen --release --workspace --exclude snx-rs-gui --exclude snxctl
+ && cargo build --config 'profile.release-lto.inherits = "release"' --config 'profile.release-lto.lto = true' --profile=release-lto --offline --frozen --workspace --exclude snx-rs-gui --exclude snxctl
 
 # Final
 FROM docker.io/library/debian:stable-slim
@@ -43,9 +43,9 @@ RUN apt -qq update \
  && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /usr/bin/catatonit /usr/bin/catatonit
-COPY --from=builder /usr/src/snx-rs/target/release/snx-rs /usr/bin/
+COPY --from=builder /usr/src/snx-rs/target/release-lto/snx-rs /usr/bin/
 
-VOLUME /var/cache/snx-rs/sessions
+VOLUME /var/cache/snx-rs/
 
 ENTRYPOINT ["/usr/bin/catatonit", "-g", "--"]
 CMD ["/usr/bin/snx-rs"]
