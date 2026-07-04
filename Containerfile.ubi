@@ -1,6 +1,6 @@
 ## GIT ##
 
-FROM --platform=$BUILDPLATFORM registry.access.redhat.com/ubi10/ubi-minimal:10.1 AS git
+FROM --platform=$BUILDPLATFORM registry.access.redhat.com/ubi10/ubi-minimal:10.2 AS git
 
 ARG snx_rs_version 2.8.1
 
@@ -8,7 +8,7 @@ RUN microdnf -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install git
 RUN git clone --single-branch --depth=1 --branch=v${snx_rs_version} https://github.com/ancwrd1/snx-rs.git /snx-rs
 
 ## SNX-RS BUILDER ##
-FROM registry.access.redhat.com/ubi10/ubi:10.1 AS builder 
+FROM registry.access.redhat.com/ubi10/ubi:10.2 AS builder 
 
 COPY --from=git /snx-rs /usr/src/snx-rs
 WORKDIR /usr/src/snx-rs
@@ -20,15 +20,19 @@ RUN dnf -y --setopt install_weak_deps=False --setopt tsflags=nodocs install git-
 # Anyways, this one can be moved to "git" step at cost installing more packages
 
 RUN mkdir -p .cargo \
+ # Set rusqlite version to 0.31 due incompatibility with unstable features on RHEL rust version \
+ && sed -i 's/\(rusqlite[[:space:]]*=[[:space:]]*{[^}]*version[[:space:]]*=[[:space:]]*"\)[^"]*\(".*}\)/\10.31.0\2/' crates/snxcore/Cargo.toml \
+ # Unset bundled for sqlite and use SO libraries \
+ && sed -i 's/"bundled",[[:space:]]*//; s/"bundled"//;' crates/snxcore/Cargo.toml \
  && cargo vendor > .cargo/config.toml \
  && cargo fetch
 
-RUN RUSTC_BOOTSTRAP=rusqlite cargo build --config 'profile.release-lto.inherits = "release"' --config 'profile.release-lto.lto = true' --profile=release-lto --offline --frozen --workspace --exclude snx-rs-gui --exclude snxctl
+RUN cargo build --config 'profile.release-lto.inherits = "release"' --config 'profile.release-lto.lto = true' --profile=release-lto --offline --frozen --workspace --exclude snx-rs-gui --exclude snxctl
 
 ## FINAL ##
-FROM registry.access.redhat.com/ubi10/ubi-minimal:10.1 AS final
+FROM registry.access.redhat.com/ubi10/ubi-minimal:10.2 AS final
 
-RUN microdnf -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install catatonit ca-certificates iproute \
+RUN microdnf -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install catatonit ca-certificates sqlite iproute \
  && microdnf -y clean all \
  && rm -rf /var/cache/yum
 
